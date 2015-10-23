@@ -1,7 +1,9 @@
 package com.notepad.model.menu.format;
 
+import com.notepad.controller.NPFontController;
 import com.notepad.controller.NPMainController;
 import com.notepad.model.interfaces.Command;
+import com.notepad.model.interfaces.Controller;
 
 import javax.swing.*;
 import java.awt.Font;
@@ -18,6 +20,6 @@ public class NPFontFormatMenuItem extends JMenuItem implements Command {
 
     @Override
     public void execute(NPMainController cntrlr) {
-//        cntrlr.setFont();
+        //cntrlr.setFont();
     }
 }

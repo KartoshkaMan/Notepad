@@ -1,5 +1,6 @@
 package com.notepad.controller;
 
+import com.notepad.model.interfaces.Controller;
 import com.notepad.view.NPFontFrame;
 import com.notepad.view.NPMainFrame;
 
@@ -10,7 +11,7 @@ import java.awt.*;
  * Created by KartoshkaD on 23.10.2015.
  *
  */
-public class NPFontController{
+public class NPFontController implements Controller{
 
     NPMainFrame mainFrame;
     NPFontFrame fontFrame;

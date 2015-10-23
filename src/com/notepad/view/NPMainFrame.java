@@ -1,6 +1,7 @@
 package com.notepad.view;
 
 import com.notepad.model.menu.file.*;
+import com.notepad.model.menu.format.NPFontFormatMenuItem;
 
 import javax.swing.*;
 
@@ -27,6 +28,8 @@ public class NPMainFrame extends JFrame {
     private NPSaveFileMenuItem saveFile;
     private NPSaveAsFileMenuItem saveAsFile;
     private NPCloseFileMenuItem closeFile;
+
+    private NPFontFormatMenuItem formatFont;
 
     public NPMainFrame() {
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -59,8 +62,15 @@ public class NPMainFrame extends JFrame {
         this.fileMenu.add(this.saveAsFile);
         this.fileMenu.add(this.closeFile);
 
+        // Format menu items //
+        this.formatFont = new NPFontFormatMenuItem();
+
+        // Format menu constructor //
+        this.formatMenu.add(this.formatFont);
+
         // Menu bar constructor //
         this.bar.add(this.fileMenu);
+        this.bar.add(this.formatMenu);
         this.bar.setBackground(Color.white);
 
         // Text area //
@@ -86,7 +96,7 @@ public class NPMainFrame extends JFrame {
         this.saveAsFile.addActionListener(listener);
         this.closeFile.addActionListener(listener);
 
-
+        this.formatFont.addActionListener(listener);
     }
 
     public void setContent(String str) {

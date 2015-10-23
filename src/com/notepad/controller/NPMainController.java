@@ -3,6 +3,7 @@ package com.notepad.controller;
 import com.notepad.controller.listener.NPDocumentListener;
 import com.notepad.controller.listener.NPMenuListener;
 import com.notepad.model.functional.NPDocumentModel;
+import com.notepad.model.interfaces.Controller;
 import com.notepad.view.NPMainFrame;
 
 import javax.swing.*;
@@ -13,7 +14,7 @@ import java.io.File;
  * Created by KartoshkaD on 21.10.2015.
  *
  */
-public class NPMainController {
+public class NPMainController implements Controller {
 
     private NPMainFrame npMainFrame;
     private NPDocumentModel npDocumentModel;
