@@ -1,32 +1,42 @@
 package com.notepad.controller;
 
-import com.notepad.model.interfaces.Controller;
+import com.notepad.model.interfaces.Command;
 import com.notepad.view.NPFontFrame;
 import com.notepad.view.NPMainFrame;
 
-import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by KartoshkaD on 23.10.2015.
  *
  */
-public class NPFontController implements Controller{
+public class NPFontController {
 
-    NPMainFrame mainFrame;
+    NPMainController mainController;
     NPFontFrame fontFrame;
 
-    public NPFontController(NPMainFrame frameM, NPFontFrame frameF) {
-        this.mainFrame = frameM;
+    // Constructor //
+    public NPFontController(NPMainController mainC, NPFontFrame frameF) {
+        this.mainController = mainC;
         this.fontFrame = frameF;
+
+        frameF.addBtnListener(new NPFontListener(this.mainController));
     }
 
+    // Listeners //
+    private class NPFontListener implements ActionListener {
 
+        private NPMainController mainController;
 
-    public void setFont(Font font) {
-        this.mainFrame.setFont(font);
-    }
-    public void setVisible(boolean bool) {
-        this.fontFrame.setVisible(bool);
+        public NPFontListener(NPMainController cntrlr) {
+            this.mainController = cntrlr;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ((Command)e.getSource()).execute(this.mainController);
+        }
     }
 }

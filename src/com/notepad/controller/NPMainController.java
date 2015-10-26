@@ -1,24 +1,29 @@
 package com.notepad.controller;
 
-import com.notepad.controller.listener.NPDocumentListener;
-import com.notepad.controller.listener.NPMenuListener;
 import com.notepad.model.functional.NPDocumentModel;
-import com.notepad.model.interfaces.Controller;
+import com.notepad.model.interfaces.Command;
+import com.notepad.view.NPFontFrame;
 import com.notepad.view.NPMainFrame;
 
 import javax.swing.*;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 
 /**
  * Created by KartoshkaD on 21.10.2015.
  *
  */
-public class NPMainController implements Controller {
+public class NPMainController {
 
     private NPMainFrame npMainFrame;
     private NPDocumentModel npDocumentModel;
 
+    // Constructor //
     public NPMainController(NPMainFrame frame, NPDocumentModel doc) {
         this.npDocumentModel = doc;
         this.npMainFrame = frame;
@@ -27,9 +32,10 @@ public class NPMainController implements Controller {
         npMainFrame.setContent(npDocumentModel.getContent());
 
         npMainFrame.addContentListener(new NPDocumentListener(this));
-        npMainFrame.addFileMenuListener(new NPMenuListener(this));
+        npMainFrame.addBtnListener(new NPBtnListener(this));
     }
 
+    // Document operations //
     public void newFile() {
         this.sf();
         this.npDocumentModel = new NPDocumentModel();
@@ -71,7 +77,6 @@ public class NPMainController implements Controller {
         this.sf();
         this.npMainFrame.dispose();
     }
-
     public void updateDoc() {
         System.err.println("Old: Document: \"" + this.npDocumentModel.getContent() + "\"Frame: \"" + this.npMainFrame.getTextContent() + "\"");
         this.npDocumentModel.setChanged(true);
@@ -82,6 +87,12 @@ public class NPMainController implements Controller {
         System.err.println("Changed: " + npDocumentModel.isChanged() + " Existed: " + npDocumentModel.isExist() + "\n");
     }
 
+    // Font operations //
+    public void setFont(Font font) {
+        this.npMainFrame.setFont(font);
+    }
+
+    // Some code copying fix //
     private void sf(){
         if (this.npDocumentModel.isChanged()) {
             if (this.npDocumentModel.isExist()) {
@@ -110,6 +121,49 @@ public class NPMainController implements Controller {
                     }
                 }
             }
+        }
+    }
+
+    // Getters //
+    public Font getFont() {
+        return this.npMainFrame.getFont();
+    }
+
+    // Listeners //
+    private class NPBtnListener implements ActionListener {
+
+        NPMainController npMainController;
+
+        public NPBtnListener (NPMainController cntrlr) {
+            this.npMainController = cntrlr;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ((Command)e.getSource()).execute(this.npMainController);
+        }
+    }
+    private class NPDocumentListener implements KeyListener {
+
+        private NPMainController controller;
+
+        public NPDocumentListener(NPMainController cntrlr) {
+            this.controller = cntrlr;
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            this.controller.updateDoc();
         }
     }
 }

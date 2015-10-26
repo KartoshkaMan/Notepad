@@ -15,6 +15,8 @@ import java.awt.event.KeyListener;
  */
 public class NPMainFrame extends JFrame {
 
+    private Font font;
+
     private JScrollPane scroller;
     private JTextArea content;
 
@@ -77,6 +79,10 @@ public class NPMainFrame extends JFrame {
         this.content = new JTextArea();
         this.scroller = new JScrollPane(this.content, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
+
+        // Font //
+        this.font = this.content.getFont();
+
         // Panel construction //
         pnl.add(this.bar, BorderLayout.NORTH);
         pnl.add(this.scroller, BorderLayout.CENTER);
@@ -86,10 +92,11 @@ public class NPMainFrame extends JFrame {
         this.setVisible(true);
     }
 
+    // Listeners' setuppers //
     public void addContentListener(KeyListener listener) {
         this.content.addKeyListener(listener);
     }
-    public void addFileMenuListener(ActionListener listener){
+    public void addBtnListener(ActionListener listener){
         this.newFile.addActionListener(listener);
         this.openFile.addActionListener(listener);
         this.saveFile.addActionListener(listener);
@@ -99,18 +106,24 @@ public class NPMainFrame extends JFrame {
         this.formatFont.addActionListener(listener);
     }
 
+    // Setters //
     public void setContent(String str) {
         this.content.setText(str);
     }
     public void setFont(Font font) {
+        this.font = font;
         this.content.setFont(font);
     }
     public void setSaveMenuItemEnabled(boolean bool) {
         this.saveFile.setEnabled(bool);
     }
 
+    // Getters //
     public String getTextContent() {
         return this.content.getText();
+    }
+    public Font getFont() {
+        return this.content.getFont();
     }
 
 }
