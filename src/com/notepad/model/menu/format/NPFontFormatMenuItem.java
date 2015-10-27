@@ -4,7 +4,6 @@ import com.notepad.controller.NPFontController;
 import com.notepad.controller.NPMainController;
 import com.notepad.model.interfaces.Command;
 import com.notepad.view.NPFontFrame;
-import com.notepad.view.NPMainFrame;
 
 import javax.swing.*;
 

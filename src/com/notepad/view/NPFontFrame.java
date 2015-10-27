@@ -4,8 +4,6 @@ import com.notepad.model.menu.format.NPApproveFontBtn;
 import com.notepad.model.menu.format.NPRejectFontBtn;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +19,7 @@ public class NPFontFrame extends JDialog {
 
     JComboBox fonts;
     JComboBox styles;
-    JLabel exampleLabel;
+    JLabel exampleShower;
     JScrollPane fontScroller;
     JTextField fontSize;
 
@@ -61,9 +59,9 @@ public class NPFontFrame extends JDialog {
         this.fontSize.setText("" + font.getSize());
 
         // Example label //
-        this.exampleLabel = new JLabel("\"AaBbCcDd\"");
-        this.exampleLabel.setFont(font);
-        this.exampleLabel.setHorizontalAlignment(JLabel.CENTER);
+        this.exampleShower = new JLabel("\"AaBbCcDd\"");
+        this.exampleShower.setFont(font);
+        this.exampleShower.setHorizontalAlignment(JLabel.CENTER);
 
         // Buttons //
         approveFontBtn = new NPApproveFontBtn(this);
@@ -75,69 +73,53 @@ public class NPFontFrame extends JDialog {
         this.styles.addActionListener(fcl);
         this.fontSize.addActionListener(fcl);
 
+        // Labels //
+        JLabel exampleLabel = new JLabel("Example: ");
+        JLabel fontLabel = new JLabel("Font: ");
+        JLabel styleLabel = new JLabel("Style: ");
+        JLabel sizeLabel = new JLabel("Size: ");
+
         // Panel construction //
-        JPanel pnl = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+        JPanel pnl = new JPanel();
+        GroupLayout gl = new GroupLayout(pnl);
+        gl.setAutoCreateGaps(true);
+        gl.setAutoCreateContainerGaps(true);
+        pnl.setLayout(gl);
 
+        // Horizontal group //
+        gl.setHorizontalGroup(gl.createParallelGroup()
+                        .addGroup(gl.createSequentialGroup()
+                                .addComponent(fontLabel)
+                                .addComponent(fontScroller))
+                        .addGroup(gl.createSequentialGroup()
+                                .addComponent(styleLabel)
+                                .addComponent(styles))
+                        .addGroup(gl.createSequentialGroup()
+                                .addComponent(sizeLabel)
+                                .addComponent(fontSize))
+                        .addGroup(gl.createSequentialGroup()
+                                .addComponent(approveFontBtn)
+                                .addComponent(rejectFontBtn))
+        );
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.gridheight = 1;
-        pnl.add(new JLabel("Example: "), gbc);
+        // Vertical group //
+        gl.setVerticalGroup(gl.createSequentialGroup()
+                        .addGroup(gl.createParallelGroup()
+                                .addComponent(fontLabel)
+                                .addComponent(fontScroller))
+                        .addGroup(gl.createParallelGroup()
+                                .addComponent(styleLabel)
+                                .addComponent(styles))
+                        .addGroup(gl.createParallelGroup()
+                                .addComponent(sizeLabel)
+                                .addComponent(fontSize))
+                        .addGroup(gl.createParallelGroup()
+                                .addComponent(approveFontBtn)
+                                .addComponent(rejectFontBtn))
+        );
 
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        pnl.add(exampleLabel, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        pnl.add(new JLabel("Font: "), gbc);
-
-        gbc.gridx = 2;
-        gbc.gridy = 2;
-        gbc.gridheight = 1;
-        gbc.gridwidth = 6;
-        pnl.add(this.fontScroller, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.gridwidth = 2;
-        pnl.add(new JLabel("Style: "), gbc);
-
-        gbc.gridx = 2;
-        gbc.gridy = 3;
-        gbc.gridheight = 1;
-        gbc.gridwidth = 6;
-        pnl.add(this.styles, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.gridwidth = 2;
-        pnl.add(new JLabel("Size: "), gbc);
-
-        gbc.gridx = 2;
-        gbc.gridy = 4;
-        gbc.gridwidth = 6;
-        pnl.add(this.fontSize, gbc);
-
-        gbc.gridx = 4;
-        gbc.gridy = 6;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        pnl.add(this.approveFontBtn, gbc);
-
-        gbc.gridx = 5;
-        gbc.gridy = 6;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        pnl.add(this.rejectFontBtn, gbc);
-
-        // //
         this.add(pnl);
+        this.pack();
         this.setVisible(true);
     }
 
@@ -156,16 +138,16 @@ public class NPFontFrame extends JDialog {
     private class FontChangeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Font curentFont = exampleLabel.getFont();
+            Font curentFont = exampleShower.getFont();
 
             if (e.getSource() == fontSize) {
-                exampleLabel.setFont(new Font(curentFont.getName(), curentFont.getStyle(), Integer.parseInt(fontSize.getText())));
+                exampleShower.setFont(new Font(curentFont.getName(), curentFont.getStyle(), Integer.parseInt(fontSize.getText())));
             }
             else if (e.getSource() == fonts) {
-                exampleLabel.setFont(new Font(fonts.getSelectedItem().toString(), curentFont.getStyle(), curentFont.getSize()));
+                exampleShower.setFont(new Font(fonts.getSelectedItem().toString(), curentFont.getStyle(), curentFont.getSize()));
             }
             else if (e.getSource() == styles) {
-                exampleLabel.setFont(new Font(curentFont.getName(), styles.getSelectedIndex(), curentFont.getSize()));
+                exampleShower.setFont(new Font(curentFont.getName(), styles.getSelectedIndex(), curentFont.getSize()));
             }
         }
     }

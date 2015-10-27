@@ -2,7 +2,6 @@ package com.notepad.controller;
 
 import com.notepad.model.interfaces.Command;
 import com.notepad.view.NPFontFrame;
-import com.notepad.view.NPMainFrame;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
