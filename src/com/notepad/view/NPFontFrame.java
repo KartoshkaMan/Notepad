@@ -27,7 +27,6 @@ public class NPFontFrame extends JDialog {
         // Setup frame //
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        this.setResizable(false);
         this.setSize(500, 500);
         this.setTitle("Font settings");
 
@@ -87,7 +86,10 @@ public class NPFontFrame extends JDialog {
         pnl.setLayout(gl);
 
         // Horizontal group //
-        gl.setHorizontalGroup(gl.createParallelGroup()
+        gl.setHorizontalGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER)
+                        .addGroup(gl.createSequentialGroup()
+                                .addComponent(exampleLabel)
+                                .addComponent(exampleShower))
                         .addGroup(gl.createSequentialGroup()
                                 .addComponent(fontLabel)
                                 .addComponent(fontScroller))
@@ -102,8 +104,12 @@ public class NPFontFrame extends JDialog {
                                 .addComponent(rejectFontBtn))
         );
 
+
         // Vertical group //
         gl.setVerticalGroup(gl.createSequentialGroup()
+                        .addGroup(gl.createParallelGroup()
+                                .addComponent(exampleLabel)
+                                .addComponent(exampleShower))
                         .addGroup(gl.createParallelGroup()
                                 .addComponent(fontLabel)
                                 .addComponent(fontScroller))
@@ -117,6 +123,8 @@ public class NPFontFrame extends JDialog {
                                 .addComponent(approveFontBtn)
                                 .addComponent(rejectFontBtn))
         );
+
+
 
         this.add(pnl);
         this.pack();
