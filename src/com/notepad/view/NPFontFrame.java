@@ -4,6 +4,8 @@ import com.notepad.model.menu.format.NPApproveFontBtn;
 import com.notepad.model.menu.format.NPRejectFontBtn;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.xml.bind.annotation.XmlElementDecl;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -76,7 +78,9 @@ public class NPFontFrame extends JDialog {
 
 
         // Example label //
-        this.exampleShower = new JLabel("\"AaBbCcDd\"");
+        Border exampleBorder = new LineBorder(Color.black, 1);
+        this.exampleShower = new JLabel("AaBbCcDd");
+        this.exampleShower.setBorder(exampleBorder);
         this.exampleShower.setFont(font);
         this.exampleShower.setHorizontalAlignment(JLabel.CENTER);
         this.exampleShower.setPreferredSize(new Dimension(250, 60));
@@ -103,6 +107,7 @@ public class NPFontFrame extends JDialog {
         GroupLayout gl = new GroupLayout(pnl);
         gl.setAutoCreateGaps(true);
         gl.setAutoCreateContainerGaps(true);
+        pnl.setBackground(Color.white);
         pnl.setLayout(gl);
 
         // Horizontal group //
