@@ -6,7 +6,6 @@ import com.notepad.model.menu.format.NPRejectFontBtn;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-import javax.xml.bind.annotation.XmlElementDecl;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,6 +30,7 @@ public class NPFontFrame extends JDialog {
     public NPFontFrame(Font font) {
         // Setup frame //
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.setIconImage(new ImageIcon(".\\src\\com\\notepad\\image\\font-icon.png").getImage());
         this.setLocationRelativeTo(null);
         this.setSize(500, 500);
         this.setTitle("Font settings");
