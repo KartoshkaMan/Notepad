@@ -44,7 +44,7 @@ public class NPMainController {
     public void openFile() {
         this.sf();
         JFileChooser jfc = new JFileChooser();
-        jfc.setCurrentDirectory(new File("C:\\Users\\%username%\\Documents"));
+        jfc.setCurrentDirectory(new File(System.getProperty("user.home") + "\\Documents\\"));
         jfc.setDialogTitle("Open file...");
         jfc.setApproveButtonText("Open");
         if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
@@ -63,6 +63,7 @@ public class NPMainController {
         JFileChooser jfc = new JFileChooser();
         jfc.setDialogTitle("Save as...");
         jfc.setApproveButtonText("Save");
+        jfc.setCurrentDirectory(new File(npDocumentModel.getPath()));
         if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             File file = jfc.getSelectedFile();
             System.err.println("Old:\n" + this.npDocumentModel.getContent() + "\nChnaged: " + this.npDocumentModel.isChanged() + "\nExists: " + this.npDocumentModel.isExist());
